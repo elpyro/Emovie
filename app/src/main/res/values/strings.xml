@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RappiTest</string>
+    <string name="recomendado">Recomendados para tí</string>
+    <string name="proximos_es">Próximos estrenos</string>
+    <string name="tendencias">Tendencia</string>
+    <string name="en_espana">En España</string>
+    <string name="en_espanol">En español</string>
+    <string name="en_1993">Lanzados en 1993</string>
+    <string name="emovie">eMovie</string>
+    <string name="presioneDosVeces">Presione 2 veces para salir</string>
+</resources>
