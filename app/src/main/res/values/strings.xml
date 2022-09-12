@@ -8,4 +8,6 @@
     <string name="en_1993">Lanzados en 1993</string>
     <string name="emovie">eMovie</string>
     <string name="presioneDosVeces">Presione 2 veces para salir</string>
+    <string name="api_key">c06fce03255ef224fabad691249b6019</string>
+    <string name="rutaImagenes">https://image.tmdb.org/t/p/w500/</string>
 </resources>

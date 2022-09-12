@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextoEnTituloPrincipal" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textSize">48sp</item>
+        <item name="font">@font/poppins_normal</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">15</item>
+        <item name="android:shadowDy">15</item>
+        <item name="android:shadowRadius">30</item>
+        <item name="android:lineSpacingMultiplier">0.7</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:autoSizeTextType">uniform</item>
+
+    </style>
+</resources>
