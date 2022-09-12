@@ -12,12 +12,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageViewPelicula"
@@ -32,9 +33,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-               android:layout_margin="50dp"
-                android:autoSizeTextType="uniform"
+               android:layout_margin="5dp"
+
                 android:text="TextView" />
+
 
         </LinearLayout>
     </ScrollView>
@@ -167,7 +169,8 @@
                             android:layout_height="match_parent"
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            tools:ignore="TouchTargetSizeCheck">
 
                             <TextView
                                 android:id="@+id/buttonRanking"
