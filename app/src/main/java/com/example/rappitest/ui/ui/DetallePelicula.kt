@@ -34,8 +34,10 @@ class DetallePelicula : AppCompatActivity() {
         detallePeliculaViewModel.onCreate(pelicula)
         detallePeliculaViewModel.detallePeliculaModel.observe(this,{
             Picasso.get().load(getString(R.string.rutaImagenes)+it[0].poster_path).into(binding.imageViewPelicula)
+            binding.imageViewPelicula.startAnimation(animation)
             binding.textViewTitulo.setText(it[0].title)
             binding.textViewSinopsis.setText(it[0].overview)
+
 
             binding.buttonAno.setText(it[0].release_date.toString().substring(0,4))
             binding.buttonLenguaje.setText(it[0].original_language)
