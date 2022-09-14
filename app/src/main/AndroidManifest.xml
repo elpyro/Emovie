@@ -3,6 +3,8 @@
     package="com.example.rappitest">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,20 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RappiTest">
+        <activity
+            android:name=".ui.ui.VideoPlayerActivity"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".ui.ui.DetallePelicula"
+            android:exported="false" />
+
 
         <activity
             android:name=".ui.ui.Home"
             android:exported="false" />
         <activity
             android:name=".ui.ui.DetallePelicula"
-            android:parentActivityName=".ui.ui.Home"
             android:exported="false"
-
-            />
+            android:theme="@style/Theme.RappiTestActionBar"
+            android:parentActivityName=".ui.ui.Home" />
         <activity
             android:name=".ui.ui.SplashScreenActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

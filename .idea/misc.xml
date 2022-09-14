@@ -8,10 +8,13 @@
         <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/drawable/fondo_splash.xml" value="0.224" />
         <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/drawable/ic_launcher_background.xml" value="0.224" />
         <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/drawable/radius_button.xml" value="0.1955" />
-        <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/activity_detalle_pelicula.xml" value="0.18981481481481483" />
+        <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/activity_detalle_pelicula.xml" value="0.33" />
         <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/activity_main.xml" value="0.16875" />
         <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/activity_splash_screen.xml" value="0.28888888888888886" />
+        <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/activity_video_player.xml" value="0.1546875" />
+        <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/activity_video_prueba.xml" value="0.16875" />
+        <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/activity_video_reproductor.xml" value="0.21203703703703702" />
         <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/item_pelicula.xml" value="0.16875" />
         <entry key="..\:/Users/eloy_/AndroidStudioProjects/RappiTest/app/src/main/res/layout/iterm_pelicula.xml" value="0.21203703703703702" />
       </map>
@@ -22,5 +25,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.18" />
+      </ProjectState>
+    </option>
   </component>
 </project>

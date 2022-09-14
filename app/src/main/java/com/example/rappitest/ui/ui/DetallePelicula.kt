@@ -1,12 +1,16 @@
 package com.example.rappitest.ui.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rappitest.R
+import com.example.rappitest.data.model.ModeloGenero
 import com.example.rappitest.data.model.ModeloResult
 import com.example.rappitest.databinding.ActivityDetallePeliculaBinding
+import com.example.rappitest.network.RetrofitHelper
 import com.example.rappitest.viewModel.DetallePeliculaViewModel
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
@@ -39,6 +43,12 @@ class DetallePelicula : AppCompatActivity() {
             binding.buttonRanking.setText(""+  df.format(it[0].vote_average))
 
         })
-//        binding.textViewSinopsis.setText(pelicula.overview)
+        val api_key=getString(R.string.api_key)
+        val generos=RetrofitHelper.service.getGeneros(api_key)
+
+        binding.buttonTrailer.setOnClickListener{
+            val intent = Intent(this, VideoPlayerActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.rappitest.R
 import com.example.rappitest.adaptader.AdaptadorPelicula
+import com.example.rappitest.data.model.ModeloGenero
+import com.example.rappitest.data.model.ModeloGeneroResultado
 import com.example.rappitest.data.model.ModeloResult
+import com.example.rappitest.data.objeto.ListaGeneros
 import com.example.rappitest.databinding.ActivityHomeBinding
 import com.example.rappitest.network.RetrofitHelper
 import kotlin.concurrent.thread
@@ -69,6 +72,9 @@ class Home : AppCompatActivity() {
         thread {
             val api_key=getString(R.string.api_key)
 
+            val generos = RetrofitHelper.service.getGeneros(api_key)
+            val bodyGeneros = generos.execute().body()
+
             val peliculasUpcoming = RetrofitHelper.service.getProximamente(api_key)
             val bodyPeliculasUpcoming=peliculasUpcoming.execute().body()
 
@@ -79,6 +85,9 @@ class Home : AppCompatActivity() {
             val bodyPeliculasRecomendaciones= peliculasRecomendaciones.execute().body()
 
             runOnUiThread{
+                val valor=  bodyGeneros?.genres as MutableList<ModeloGeneroResultado>
+
+                Toast.makeText(this,"Generos ${valor[0].name}",Toast.LENGTH_LONG).show()
 
                 if (bodyPeliculasUpcoming!=null){
                     adaptadorProximamente.images= bodyPeliculasUpcoming?.results as MutableList<ModeloResult>

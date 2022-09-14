@@ -1,5 +1,6 @@
 package com.example.rappitest.network
 
+import com.example.rappitest.data.model.ModeloGenero
 import com.example.rappitest.data.model.ModeloPeliculas
 import retrofit2.Call
 import retrofit2.http.GET
@@ -16,4 +17,6 @@ interface PeliculaBdService {
     @GET("movie/550/recommendations")
     fun getRecomendaciones(@Query("api_key")apiKey:String): Call<ModeloPeliculas>
 
+    @GET("genre/movie/list")
+    fun getGeneros (@Query("api_key")apiKey:String): Call<ModeloGenero>
 }
