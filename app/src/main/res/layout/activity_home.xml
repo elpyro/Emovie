@@ -18,15 +18,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"        >
 
-      <TextView
-          android:id="@+id/textView"
-          android:layout_width="match_parent"
+      <com.romainpiel.shimmer.ShimmerTextView
+          android:id="@+id/shimmer_logo"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textColor="@color/white"
-          android:layout_margin="10dp"
-          android:gravity="center"
-          android:textSize="30sp"
-          android:text="@string/emovie" />
+          android:layout_gravity="center"
+          android:fontFamily="sans-serif-black"
+          android:text="eMovie"
+          android:textColor="#444"
+          android:textSize="40sp" />
 
       <TextView
           android:id="@+id/pr_ximos_es"
@@ -68,39 +68,28 @@
           android:layout_height="match_parent"
           android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinnerIdiomas"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="@string/en_espanol"
-              android:backgroundTint="@color/white"
-              android:textColor="@android:color/black"
-              app:strokeColor="@color/black"
-              app:cornerRadius="20dp"
-              android:textAppearance="@style/TextoEnBottones"
-              style="?android:attr/buttonBarButtonStyle" />
+            android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinnerAnos"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:shadowColor="@color/white"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            app:strokeColor="@color/white"
-            app:strokeWidth="1dp"
-            app:cornerRadius="20dp"
-            android:text="@string/en_1993"
-            android:textAppearance="@style/TextoEnBottones"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:layout_weight="1" />
 
       </LinearLayout>
 
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/recycerViewRecomendado"
           android:layout_width="match_parent"
+          android:background="@color/vino_tinto"
           android:layout_height="match_parent" />
 
     </LinearLayout>

@@ -11,4 +11,10 @@
     <string name="api_key">c06fce03255ef224fabad691249b6019</string>
     <string name="rutaImagenes">https://image.tmdb.org/t/p/w500/</string>
     <string name="verTrailer">Ver Trailer</string>
+    <string name="espanol">Español</string>
+    <string name="ingles">Ingles</string>
+    <string name="ruso">Ruso</string>
+    <string name="japones">Japones</string>
+    <string name="koreano">Koreano</string>
+    <string name="italiano">Italiano</string>
 </resources>

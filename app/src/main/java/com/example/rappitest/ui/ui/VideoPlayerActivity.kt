@@ -33,7 +33,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         youTubePlayerView.toggleFullScreen()
 
 
-        Toast.makeText(this, "El Back-End no proporciona inf. para el trailer \n ¡Video de demostación!",Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, "El Back-End no proporciona inf. para el trailer \n ¡Video de demostación!",Toast.LENGTH_LONG).show()
         //TODO EL BACK-END NO PROPORCIONA EL TRAILER DE VIDEO, SE COLOCO UNO DE YOUTUBE DE EJEMPLO
         var videoYouTubeId = "9bwcu6rewSY"
 

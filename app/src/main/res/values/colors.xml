@@ -8,7 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="fondo_negro">#171616</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="azul_oscuro">#1F2B77</color>
     <color name="vino_tinto">#2B0C0C</color>
     <color name="amarillo">#F6C700</color>
-    <color name="whiteTrasparente">#07FFFFFF</color>
+    <color name="whiteTrasparente">#07829AC1</color>
 </resources>

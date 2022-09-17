@@ -19,24 +19,20 @@
             android:parentActivityName=".ui.ui.DetallePelicula"
             android:exported="false" />
 
-
         <activity
             android:name=".ui.ui.Home"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/SplashTreme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.ui.DetallePelicula"
             android:exported="false"
             android:theme="@style/Theme.RappiTestActionBar"
             android:parentActivityName=".ui.ui.Home" />
-        <activity
-            android:name=".ui.ui.SplashScreenActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
