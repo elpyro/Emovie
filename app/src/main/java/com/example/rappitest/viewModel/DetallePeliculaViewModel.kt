@@ -9,7 +9,7 @@ import java.io.Serializable
 class DetallePeliculaViewModel: ViewModel() {
 
     var detallePeliculaModel= MutableLiveData<ArrayList<ModeloResult>>(arrayListOf())
-   // var peliculaModel= MutableLiveData<ArrayList<Serializable>> ()
+
 
     fun onCreate(pelicula: Serializable?) {
         var datosPelicula= pelicula as ModeloResult
@@ -25,7 +25,7 @@ class DetallePeliculaViewModel: ViewModel() {
                 datosPelicula.popularity,
                 datosPelicula.poster_path,
                 datosPelicula.release_date,
-                datosPelicula.original_title,
+                datosPelicula.title,
                 datosPelicula.video,
                 datosPelicula.vote_average,
                 datosPelicula.vote_count,

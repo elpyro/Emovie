@@ -2,6 +2,7 @@ package com.example.rappitest.ui.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,22 +16,46 @@ import java.text.DecimalFormat
 
 
 class DetallePelicula : AppCompatActivity() {
-
+    var sideAnimation: Animation? = null
+    var animation: Animation? =null
+    //inicializando componenetes
     private lateinit var binding: ActivityDetallePeliculaBinding
+    var pelicula: ModeloResult?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityDetallePeliculaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val animation=AnimationUtils.loadAnimation(this,R.anim.slide_down)
-        val pelicula=intent.getSerializableExtra("pelicula") as ModeloResult
-        val sideAnimation = AnimationUtils.loadAnimation(this,R.anim.slide)
+        //incializamos componentes
+        ini()
 
+        //conectamos el ViewHolder con la vista
+        iniViewModel()
+
+        //LISTENER o acciones en la Actividad
+        accionesComponentes()
+    }
+
+    private fun ini() {
+        animation=AnimationUtils.loadAnimation(this,R.anim.slide_down)
+        sideAnimation= AnimationUtils.loadAnimation(this,R.anim.slide)
+
+        //informacion recibida del activity home
+        pelicula=intent.getSerializableExtra("pelicula") as ModeloResult
+    }
+
+    private fun accionesComponentes() {
+        binding.buttonTrailer.setOnClickListener{
+            val intent = Intent(this, VideoPlayerActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun iniViewModel() {
         val detallePeliculaViewModel: DetallePeliculaViewModel by viewModels()
-
-
         detallePeliculaViewModel.onCreate(pelicula)
+
         detallePeliculaViewModel.detallePeliculaModel.observe(this,{
 
             Picasso.get().load(getString(R.string.rutaImagenes)+it[0].poster_path).into(binding.imageViewPelicula)
@@ -48,11 +73,5 @@ class DetallePelicula : AppCompatActivity() {
             val mostrarGeneros= ListaGenerosPeliculas.verificarGeneroPelicula(it[0].genre_ids)
             binding.textViewGenero.setText( mostrarGeneros )
         })
-
-
-        binding.buttonTrailer.setOnClickListener{
-            val intent = Intent(this, VideoPlayerActivity::class.java)
-            startActivity(intent)
-        }
     }
 }
