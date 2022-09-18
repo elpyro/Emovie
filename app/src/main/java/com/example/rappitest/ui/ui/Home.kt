@@ -8,7 +8,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.rappitest.R
@@ -21,6 +23,8 @@ import com.example.rappitest.data.objeto.ListaTendencia
 import com.example.rappitest.data.objeto.ListaUpComing
 import com.example.rappitest.databinding.ActivityHomeBinding
 import com.example.rappitest.network.RetrofitHelper
+import com.example.rappitest.viewModel.DetallePeliculaViewModel
+import com.example.rappitest.viewModel.HomeViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.romainpiel.shimmer.Shimmer
@@ -42,7 +46,7 @@ class Home : AppCompatActivity () {
     var idiomas = mutableListOf<String>()
     var anos = mutableListOf<String>()
     var bodyPeliculasTendencia: ModeloPeliculas? = null
-//    private val homeViewModel: HomeViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -50,26 +54,8 @@ class Home : AppCompatActivity () {
         binding= ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var eMovieLogo: ShimmerTextView =findViewById(R.id.shimmer_logo)
-        val shimmer = Shimmer()
-        shimmer.start<ShimmerTextView>(eMovieLogo)
 
-//        binding.recyclerViewProximos.adapter
-        adaptadorProximamente= AdaptadorPelicula(emptyArray<ModeloResult>().toMutableList())
-        adaptadorTendencia= AdaptadorPelicula(emptyArray<ModeloResult>().toMutableList())
-        adaptadorRecomendados= AdaptadorPelicula(emptyArray<ModeloResult>().toMutableList())
-
-        binding.recyclerViewTendencia.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        binding.recyclerViewTendencia.adapter=adaptadorTendencia
-        binding.recyclerViewTendencia.setHasFixedSize(true);
-
-        binding.recyclerViewProximos.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        binding.recyclerViewProximos.adapter=adaptadorProximamente
-        binding.recyclerViewProximos.setHasFixedSize(true);
-
-        binding.recycerViewRecomendado.layoutManager= StaggeredGridLayoutManager (2, LinearLayoutManager.VERTICAL)
-        binding.recycerViewRecomendado.adapter=adaptadorRecomendados
-        binding.recycerViewRecomendado.setHasFixedSize(true);
+        ini()
 
         adaptadorProximamente?.setOnClickItem {
             abriDetalles(it)
@@ -102,66 +88,15 @@ class Home : AppCompatActivity () {
             }
         }
 
+        consumoApi()
 
 
-//        val mIntent = Intent(this, DetallePelicula::class.java)
-//        startActivity(mIntent)
+        Thread.sleep(1000)
+        setTheme(R.style.Theme_RappiTest)
 
+    }
 
-//        homeViewModel.peliculaModel.observe(this, Observer {
-//
-//        })
-
-//        lifecycleScope.launch {
-//            val api_key=getString(R.string.api_key)
-//
-//            val peliculasUpcoming = RetrofitHelper.service.getProximamente(api_key)
-//            val bodyPeliculasUpcoming= peliculasUpcoming.results
-//            if (bodyPeliculasUpcoming!=null){
-//            adaptadorProximamente.images= bodyPeliculasUpcoming as MutableList<ModeloResult>
-//            adaptadorProximamente.notifyDataSetChanged()
-//
-//            val peliculasTendencia= RetrofitHelper.service.getTendencia(api_key)
-//            val bodyPeliculasTendencia= peliculasTendencia.results
-//            val ArrayPeliculasTendencia = bodyPeliculasTendencia as MutableList<ModeloResult>
-//            adaptadorTendencia.images =  ArrayPeliculasTendencia
-//            adaptadorTendencia.notifyDataSetChanged()
-//
-//
-//                    CoroutineScope(Dispatchers.Main).launch{
-//                     var idiomas = mutableListOf<String>()
-//                    for ( x in ArrayPeliculasTendencia){
-//                    if (!idiomas.contains("Aleman")){
-//                        idiomas.add("Alemandddd")
-//                    }
-//                    val adaptadorIdiomas = ArrayAdapter(this, android.R.layout.simple_spinner_item,idiomas)
-//                    binding.spinnerIdiomas.adapter=adaptadorIdiomas
-//                    }
-//
-//                }
-//
-//
-//             var peliculasRecomendadas = ArrayList<ModeloResult> ()
-//
-//             var  count=0
-//             for( x in  ArrayPeliculasTendencia){
-//                count =count + 1
-//                 peliculasRecomendadas.add(x)
-//                 if (count == 6){
-//                     break
-//                 }
-//                 adaptadorRecomendados.images = peliculasRecomendadas
-//                 adaptadorRecomendados.notifyDataSetChanged()
-//             }
-//
-//
-//
-//            }
-//        }
-
-
-
-        //CONSUMO API
+    private fun consumoApi() {
         thread {
 
             val api_key=getString(R.string.api_key)
@@ -171,55 +106,51 @@ class Home : AppCompatActivity () {
                 val generos = RetrofitHelper.service.getGeneros(api_key)
                 val bodyGeneros = generos?.execute()?.body()
                 ListaGenerosPeliculas.genero =bodyGeneros?.genres as ArrayList<ModeloGeneroResultado>
-
-                crearPreferenciaGenero()
-
+                //crearPreferenciaGenero()
+                crearPreferencia(ListaGenerosPeliculas.genero as ArrayList<String> ,LIST_KEY_GENEROS)
             }catch (e:Exception){
                 //SI NO CARGA USAR EL ARRAYLIST GUARDADO
-                cargarPreferenciaGenero()
+                //     cargarPreferenciaGenero()
+                ListaGenerosPeliculas.genero = cargarPreferencia(LIST_KEY_GENEROS) as ArrayList<ModeloGeneroResultado>
             }
 
 
             // CONSUMO DE API PARA MOSTRAR LISTA DE PELICULAS
 
             try {
-            val peliculasTendencia= RetrofitHelper.service.getTendencia(api_key)
+                val peliculasTendencia= RetrofitHelper.service.getTendencia(api_key)
                 bodyPeliculasTendencia= peliculasTendencia?.execute()?.body()
                 ListaTendencia.Tendencia=bodyPeliculasTendencia?.results as ArrayList<ModeloResult>
 
                 //SI CARGA  CREAR ARRAY LIST PARA GUARDARLO COMO PREFERENCIA
-                crearPreferenciaPeliculas(ListaTendencia.Tendencia,LIST_KEY_TENDENCIA)
+                crearPreferencia(ListaTendencia.Tendencia as ArrayList<String>,LIST_KEY_TENDENCIA)
 
             }catch (e:Exception){
                 //SI NO CARGA USAR EL ARRAYLIST GUARDADO
-                ListaTendencia.Tendencia = cargarPreferenciaPeliculas(LIST_KEY_TENDENCIA)
+                ListaTendencia.Tendencia = cargarPreferencia(LIST_KEY_TENDENCIA) as ArrayList<ModeloResult>
             }
 
-        try{
-            val peliculaUpcoming= RetrofitHelper.service.getProximamente(api_key)
-            val bodyPeliculasUpcoming= peliculaUpcoming?.execute()?.body()
-            ListaUpComing.Upcoming=bodyPeliculasUpcoming?.results as ArrayList<ModeloResult>
+            try{
+                val peliculaUpcoming= RetrofitHelper.service.getProximamente(api_key)
+                val bodyPeliculasUpcoming= peliculaUpcoming?.execute()?.body()
+                ListaUpComing.Upcoming=bodyPeliculasUpcoming?.results as ArrayList<ModeloResult>
 
-            //SI CARGA  CREAR ARRAY LIST PARA GUARDARLO COMO PREFERENCIA
-            crearPreferenciaPeliculas(ListaUpComing.Upcoming,LIST_KEY_PROXIMAMENTE)
-        }catch (e:Exception){
-            ListaUpComing.Upcoming= cargarPreferenciaPeliculas(LIST_KEY_PROXIMAMENTE)
-        }
+                //SI CARGA  CREAR ARRAY LIST PARA GUARDARLO COMO PREFERENCIA
+                crearPreferencia(ListaUpComing.Upcoming as ArrayList<String>,LIST_KEY_PROXIMAMENTE)
+            }catch (e:Exception){
+                ListaUpComing.Upcoming= cargarPreferencia(LIST_KEY_PROXIMAMENTE) as ArrayList<ModeloResult>
+            }
 
-        val peliculasRecomendadas= valoresSpinner()
+            val peliculasRecomendadas= valoresSpinner()
 
-            //MOSTRAR RESULTADOS
+            //MOSTRAR RESULTADOS EN RECYCLERVIEW Y SPINNER
             runOnUiThread{
 
-                    adaptadorTendencia.images =
-                        ListaTendencia.Tendencia
-                    adaptadorTendencia.notifyDataSetChanged()
+                adaptadorTendencia.images = ListaTendencia.Tendencia
+                adaptadorTendencia.notifyDataSetChanged()
 
-
-                if (ListaUpComing.Upcoming !=null) {
-                    adaptadorProximamente.images = ListaUpComing.Upcoming
-                    adaptadorProximamente.notifyDataSetChanged()
-                }
+                adaptadorProximamente.images = ListaUpComing.Upcoming
+                adaptadorProximamente.notifyDataSetChanged()
 
                 adaptadorRecomendados.images = peliculasRecomendadas
                 adaptadorRecomendados.notifyDataSetChanged()
@@ -232,45 +163,51 @@ class Home : AppCompatActivity () {
 
 
         }
-        Thread.sleep(1000)
-        setTheme(R.style.Theme_RappiTest)
+    }
+
+    private fun ini() {
+        var eMovieLogo: ShimmerTextView =findViewById(R.id.shimmer_logo)
+        val shimmer = Shimmer()
+        shimmer.start<ShimmerTextView>(eMovieLogo)
+
+        adaptadorProximamente= AdaptadorPelicula(emptyArray<ModeloResult>().toMutableList())
+        adaptadorTendencia= AdaptadorPelicula(emptyArray<ModeloResult>().toMutableList())
+        adaptadorRecomendados= AdaptadorPelicula(emptyArray<ModeloResult>().toMutableList())
+
+        binding.recyclerViewTendencia.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        binding.recyclerViewTendencia.adapter=adaptadorTendencia
+        binding.recyclerViewTendencia.setHasFixedSize(true);
+
+        binding.recyclerViewProximos.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        binding.recyclerViewProximos.adapter=adaptadorProximamente
+        binding.recyclerViewProximos.setHasFixedSize(true);
+
+        binding.recycerViewRecomendado.layoutManager= StaggeredGridLayoutManager (2, LinearLayoutManager.VERTICAL)
+        binding.recycerViewRecomendado.adapter=adaptadorRecomendados
+        binding.recycerViewRecomendado.setHasFixedSize(true);
 
     }
 
-    private fun cargarPreferenciaPeliculas(key: String) : ArrayList<ModeloResult> {
+    private fun cargarPreferencia(key: String) : ArrayList<String> {
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         val jsonString = pref.getString(key, "")
         val gson = Gson()
-        val type: Type = object : TypeToken<ArrayList<ModeloResult?>?>() {}.type
-        val listPrefer: ArrayList<ModeloResult> = gson.fromJson(jsonString, type)
+        val listPrefer: ArrayList<String>
+        val type: Type
+        if (key.equals("PREFERENCIAS_GENERO")){
+             type = object : TypeToken<ArrayList<ModeloGeneroResultado?>?>() {}.type
+            listPrefer= gson.fromJson(jsonString, type)
+        }else{
+             type = object : TypeToken<ArrayList<ModeloResult?>?>() {}.type
+            listPrefer= gson.fromJson(jsonString, type)
+        }
         return listPrefer
     }
 
-    private fun cargarPreferenciaGenero() {
-        val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        val jsonString = pref.getString(LIST_KEY_GENEROS, "")
-        val gson = Gson()
-        val type: Type = object : TypeToken<ArrayList<ModeloGeneroResultado?>?>() {}.type
-        val listPrefer: ArrayList<ModeloGeneroResultado> = gson.fromJson(jsonString, type)
-        ListaGenerosPeliculas.genero =listPrefer
-    }
 
-    private fun crearPreferenciaGenero() {
-        //SI CARGA  CREAR ARRAY LIST PARA GUARDARLO COMO PREFERENCIA
-        val listaPreferenciaGeneros: ArrayList<ModeloGeneroResultado> =ListaGenerosPeliculas.genero
+    private fun crearPreferencia(lista: ArrayList<String>, key:String) {
         val gson = Gson()
-        val jsonString = gson.toJson(listaPreferenciaGeneros)
-        val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        val editor = pref.edit()
-        editor.putString(LIST_KEY_GENEROS, jsonString)
-        editor.apply()
-
-    }
-
-    private fun crearPreferenciaPeliculas(lista: ArrayList<ModeloResult>, key:String) {
-        val listaPreferencia: ArrayList<ModeloResult> = lista
-        val gson = Gson()
-        val jsonString = gson.toJson(listaPreferencia)
+        val jsonString = gson.toJson(lista)
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
         val editor = pref.edit()
         editor.putString(key, jsonString)
@@ -313,10 +250,10 @@ class Home : AppCompatActivity () {
     }
 
     private fun mostrarRecomendacionAnos(selectedItem: String) {
-        try {
+
             var count=0
             var peliculasAnos: MutableList<ModeloResult> = ArrayList()
-            val peliculaTendencia =bodyPeliculasTendencia?.results as MutableList<ModeloResult>
+            val peliculaTendencia =ListaTendencia.Tendencia
             for ( x in peliculaTendencia) {
                 //AGREGA 6 PELICULAS MAXIMO A LA LISTA
                 if (count == 6){
@@ -330,9 +267,6 @@ class Home : AppCompatActivity () {
             //Actualizar recycler
             adaptadorRecomendados.images = peliculasAnos
             adaptadorRecomendados.notifyDataSetChanged()
-        }catch (e: Exception){
-
-        }
 
     }
 
@@ -392,6 +326,3 @@ class Home : AppCompatActivity () {
     }
 }
 
-private operator fun AdapterView.OnItemClickListener?.invoke(function: () -> Unit) {
-
-}
