@@ -2,8 +2,9 @@ package com.example.rappitest.procesos
 
 import com.example.rappitest.data.objeto.ListaRecomendadas
 import com.example.rappitest.data.objeto.ListaTendencia
+import javax.inject.Inject
 
-class  SeisRecomendaciones() {
+class  SeisRecomendaciones @Inject constructor() {
 
      fun SeisPeliculas() {
          var count =0

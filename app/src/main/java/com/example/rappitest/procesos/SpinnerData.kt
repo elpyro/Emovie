@@ -2,15 +2,17 @@ package com.example.rappitest.procesos
 
 import android.content.Context
 import com.example.rappitest.R
-import com.example.rappitest.data.objeto.ListaRecomendadas
 import com.example.rappitest.data.objeto.ListaTendencia
+import javax.inject.Inject
 
-class SpinnerData ( val context:Context) {
+class SpinnerData @Inject constructor () {
 
     var idiomas = mutableListOf<String>()
     var anos = mutableListOf<String>()
 
-    fun spinnerIdioma(): List<String>  {
+    //Evalua las peliculas en Tendencia para indicar los idiomas y años disponibles para filtrar
+
+    fun spinnerIdioma(context: Context): List<String>  {
 
         for (x in ListaTendencia.Tendencia)  {
             var idiomaPelicula: String? = null

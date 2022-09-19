@@ -56,22 +56,23 @@ class DetallePelicula : AppCompatActivity() {
         val detallePeliculaViewModel: DetallePeliculaViewModel by viewModels()
         detallePeliculaViewModel.onCreate(pelicula)
 
-        detallePeliculaViewModel.detallePeliculaModel.observe(this,{
+        detallePeliculaViewModel.detallePeliculaModel.observe(this) {
 
-            Picasso.get().load(getString(R.string.rutaImagenes)+it[0].poster_path).into(binding.imageViewPelicula)
+            Picasso.get().load(getString(R.string.rutaImagenes) + it[0].poster_path)
+                .into(binding.imageViewPelicula)
             binding.imageViewPelicula.startAnimation(animation)
             binding.textViewTitulo.setText(it[0].title)
             binding.textViewSinopsis.setText(it[0].overview)
 
             binding.buttonTrailer.startAnimation(sideAnimation)
 
-            binding.buttonAno.setText(it[0].release_date.toString().substring(0,4))
+            binding.buttonAno.setText(it[0].release_date.toString().substring(0, 4))
             binding.buttonLenguaje.setText(it[0].original_language)
             val df = DecimalFormat("#.#")
-            binding.buttonRanking.setText(""+  df.format(it[0].vote_average))
+            binding.buttonRanking.setText("" + df.format(it[0].vote_average))
 
-            val mostrarGeneros= ListaGenerosPeliculas.verificarGeneroPelicula(it[0].genre_ids)
-            binding.textViewGenero.setText( mostrarGeneros )
-        })
+            val mostrarGeneros = ListaGenerosPeliculas.verificarGeneroPelicula(it[0].genre_ids)
+            binding.textViewGenero.setText(mostrarGeneros)
+        }
     }
 }

@@ -26,7 +26,7 @@
                 <ImageView
                     android:id="@+id/imageViewPelicula"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp"
+                    android:layout_height="550dp"
                     android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/avatars" />
 
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="408dp"
+                    android:layout_marginTop="350dp"
                     android:autoSizeTextType="uniform"
                     android:text="Titulo" />
 
@@ -53,7 +53,7 @@
 
                     <Button
                         android:id="@+id/buttonAno"
-                        android:layout_width="64dp"
+                        android:layout_width="70dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:autoSizeTextType="uniform"
@@ -66,7 +66,7 @@
 
                     <Button
                         android:id="@+id/buttonLenguaje"
-                        android:layout_width="47dp"
+                        android:layout_width="50dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:autoSizeTextType="uniform"

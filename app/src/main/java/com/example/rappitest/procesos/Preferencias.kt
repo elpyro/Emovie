@@ -7,8 +7,9 @@ import com.example.rappitest.data.model.ModeloResult
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
+import javax.inject.Inject
 
- class Preferencias () {
+class Preferencias @Inject constructor() {
 
      fun cargarPreferencia(context: Context, key: String) : ArrayList<*> {
         val pref = PreferenceManager.getDefaultSharedPreferences(context)

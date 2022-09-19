@@ -1,12 +1,12 @@
 package com.example.rappitest.procesos
 
-import android.annotation.SuppressLint
 import android.content.Context
 import com.example.rappitest.R
 import com.example.rappitest.data.model.ModeloResult
 import com.example.rappitest.data.objeto.ListaTendencia
+import javax.inject.Inject
 
-class MostrarSeleccion (){
+class MostrarSeleccion @Inject constructor(){
 
     fun mostrarRecomendacionIdioma(context: Context, selectedItem: String  ) : MutableList<ModeloResult>{
 

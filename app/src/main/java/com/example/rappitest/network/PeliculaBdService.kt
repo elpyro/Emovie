@@ -9,14 +9,11 @@ import retrofit2.http.Query
 interface PeliculaBdService {
 
     @GET("movie/upcoming")
-    fun getProximamente(@Query("api_key")apiKey:String): Call<ModeloPeliculas>?
+    suspend fun getProximamente(@Query("api_key")apiKey:String): ModeloPeliculas
 
     @GET("movie/popular")
-    fun getTendencia(@Query("api_key")apiKey:String): Call<ModeloPeliculas>?
-
-    @GET("movie/550/recommendations")
-    fun getRecomendaciones(@Query("api_key")apiKey:String): Call<ModeloPeliculas>?
+    suspend fun getTendencia(@Query("api_key")apiKey:String):  ModeloPeliculas
 
     @GET("genre/movie/list")
-    fun getGeneros (@Query("api_key")apiKey:String): Call<ModeloGenero>?
+    suspend fun getGeneros (@Query("api_key")apiKey:String):ModeloGenero
 }
